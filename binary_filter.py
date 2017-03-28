@@ -19,10 +19,10 @@ def binary_filter(array, average, lb=0, ub=1):
     array: numpy array
         Array with values equal to lb and ub. The average of this array is equal or smaller to average.
         
-    Notes
-    -----
-    Average must be below upper bound, otherwise filter makes no sense and all elements should
-    just be equal to ub.
+    Raises
+    ------
+    ValueError
+        When the average is above the upper or below the lower bound.
     
     Examples
     --------
@@ -41,6 +41,8 @@ def binary_filter(array, average, lb=0, ub=1):
           [ 0.2  0.2  0.8]]
     
     """
+    assert lb <= average, ('Average below lower bound.')
+    assert average <= ub , ('Average above upper bound.')
     
     try:
         number_of_elements = array.shape[0] * array.shape[1]
